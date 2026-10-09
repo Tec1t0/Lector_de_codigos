@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <title>Document</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #reader { width: 100%; max-width: 500px; margin: 0 auto; }
+        #resultado { margin-top: 20px; font-weight: bold; font-size: 1.2em; color: green; }
+    </style>
+</head>
+<body>
+    
+    <main>
+        <div id="reader" width="600px"></div>
+        <div id="resultado"></div>
+    </main>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        document.getElementById('resultado').innerText = "Código escaneado: " + decodedText;
+        }
+
+        function onScanFailure(error) {
+         // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+            console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 60, qrbox: {width: 250, height: 250} },
+             /* verbose= */ false);
+        
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        
+        
+
+    </script>
+</body>
+</html>
